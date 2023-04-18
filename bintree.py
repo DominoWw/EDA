@@ -198,7 +198,7 @@ class BinaryTree:
                 current = list_nodes.remove_first()  # O(1)
                 result.append(current.elem)
                 if current.left is not None:
-                    list_nodes.add_last(current.left)  # O(1)
+                    list_nodes.addLast(current.left)  # O(1)
                 if current.right is not None:
                     list_nodes.add_last(current.right)  # O(1)
 
@@ -252,6 +252,9 @@ class BinaryTree:
             return 0
         else:
             return node.elem + self._sum_elems(node.right)+self._sum_elems(node.left)
+        
+    def new_func(self) -> int:
+        return 0
 
 
 
