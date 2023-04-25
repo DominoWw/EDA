@@ -258,6 +258,64 @@ class BinaryTree:
 
 
 
+    def getCount(self, low: int, up: int):
+        if self._root:
+            return self._getCount(self._root, low, up)
+            
+        else:
+            return None
+
+    def _getCount(self, node: BinaryNode, low:int, up:int):
+        
+        if node:
+            if node.elem >low and node.elem < up:
+                return 1 + self._getCount(node.left, low,up) + self._getCount(node.right,low,up)
+            elif node.elem < low:
+                return 0 + self._getCount(node.right,low,up)
+            elif node.elem > up:
+                return 0 + self._getCount(node.left,low,up)
+            elif node.elem == low:
+                return 1 + self._getCount(node.right,low,up)
+            elif node.elem == up:
+                return 1 + self._getCount(node.left,low,up)
+        else:
+            return 0
+
+
+    def get_average_range(self, low:int, up:int):
+        if self._root:
+            l=[0,0]
+            self._get_average_range(self._root, low, up, l)
+            return l[0]/l[1]
+
+        else:
+            return 0            
+    def _get_average_range(self, node: BinaryNode, low:int, up:int, l:list):
+        if node:
+            if node.elem >low and node.elem < up:
+                l[0]+=node.elem
+                l[1]+=1
+                self._get_average_range(node.right,low,up,l)
+                self._get_average_range(node.left,low,up,l)
+            elif node.elem > up:
+                self._get_average_range(node.left,low,up,l)
+            elif node.elem < low:
+                self._get_average_range(node.right,low,up,l)
+            elif node.elem == low:
+                l[0]+=node.elem
+                l[1]+=1
+                self._get_average_range(node.right,low,up,l)
+            elif node.elem == up:
+                l[0]+=node.elem
+                l[1]+=1
+                self._get_average_range(node.left,low,up,l)
+
+
+
+
+
+
+
 if __name__ == '__main__':
     tree = BinaryTree()
     newNode = BinaryNode(2)
@@ -287,6 +345,10 @@ if __name__ == '__main__':
 
     print('max elem:', tree.max_elem())
     print('sum of elems: ', tree.sum_elems())
+
+    print("Range: ", tree.getCount(5,8))
+    print("AVR range: ", tree.get_average_range(1,11))
+
 
 
 
