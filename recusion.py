@@ -45,9 +45,10 @@ def sumlist(a:list):
             return a[0] + sumlist(a[1:])
         
 def digit(a:int):
-    if a>0:
-        return a % 10 + digit(a/10)  
-
+    if a==0:
+        return 0
+    else:
+        return a % 10 + digit(a//10)  
 
 print(fact(3))
 print(devnat(4))
