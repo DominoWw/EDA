@@ -36,13 +36,17 @@ def sumdos(a,b):
 
 
 def sumlist(a:list):
-    if a.len()==0:
+    if len(a)==0:
         return None
     else:
-        if a.len==1:
-            return a
+        if len(a)==1:
+            return a[0]
+        else:
+            return a[0] + sumlist(a[1:])
         
-    
+def digit(a:int):
+    if a>0:
+        return a % 10 + digit(a/10)  
 
 
 print(fact(3))
@@ -51,3 +55,7 @@ print(sumdos(1,0))
 print(sumdos(-1,2))
 print(sumdos(3,4))
 
+l1 = [1,1,1,2,2,2]
+print(sumlist(l1))
+
+print(digit(45454))
