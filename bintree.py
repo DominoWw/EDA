@@ -309,9 +309,56 @@ class BinaryTree:
                 l[0]+=node.elem
                 l[1]+=1
                 self._get_average_range(node.left,low,up,l)
+    
+    def _myfind(self, nodo: BinaryNode, x:int):
+        if nodo == None:
+            return False
+        elif nodo.elem > x:
+            return self._myfind(nodo.left, x)
+        elif nodo.elem < x:
+            return self._myfind(nodo.right, x)
+        elif nodo.elem== x:
+            return True
+    
+    def countPairs(self, otherTree, k:int):
+        return self._countPairs(self._root, k)/2 + otherTree._countPairs(otherTree._root, k)/2
+    
+    def _countPairs(self, node:BinaryNode, k:int):
+        if node==None:
+            return 0
+        elif node.elem>=k or node.elem == k/2:
+            return 0 + self._countPairs(node.left, k)
+        elif node.elem < k:
+            find_x=k-node.elem
+            if self._myfind(self._root, find_x):
+                return 1 + self._countPairs(node.left,k) + self._countPairs(node.right, k)
+            else:
+                return 0 + self._countPairs(node.left,k) + self._countPairs(node.right, k)
+            
+'''
+def find_first_last(l:list, x:int):
+    return [ff(l, x), fl(l, x)]
+def ff(l:list, x:int):
+    if len(l) > 0 and l[0]==x:
+        return 0
+    elif len(l)>0 and l[0]!=x:
+        return 1+ ff(l[1:], x)
+    else:
+        return -1
+    
+
+def fl(l:list, x:int):
+    if len(l) > 0 and l[-1] == x:
+        return 0
+    elif len(1)>0 and l[-1] != x:
+        llen=len(l)
+        return 1 + fl(l[:llen-2])
+    else:
+        return -1
+   
 
 
-
+'''
 
 
 
@@ -326,20 +373,36 @@ if __name__ == '__main__':
     rrNode = right.right
     rrNode.right = BinaryNode(30)
 
-    
-
-    
-
-
-
-
-
     root = BinaryNode(5, left, right)
     tree._root = root
+
+
+
+    tree2 = BinaryTree()
+    tr2m = BinaryNode(6)
+    tr2n= BinaryNode(10,tr2m, None)
+    tr3m=BinaryNode(4)
+    
+    tree2._root = BinaryNode(5, tr3m,tr2n)
+    
+
+   
+
+
+    l1 = [-2,3,-2,3,0,1,2-1,-1,5]
+    #print (l1)
+    #print (find_first_last(l1,-2))
+
     # Show the tree
     tree.draw()
+    tree2.draw()
+    
+    
+    
+    
+    print('pairs:', tree.countPairs(tree2, 11))
 
-
+    print('tree 2 min: ', tree2.min_elem())
 
     print('min elem: ', tree.min_elem())
 
