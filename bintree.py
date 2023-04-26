@@ -335,7 +335,7 @@ class BinaryTree:
             else:
                 return 0 + self._countPairs(node.left,k) + self._countPairs(node.right, k)
             
-'''
+
 def find_first_last(l:list, x:int):
     return [ff(l, x), fl(l, x)]
 def ff(l:list, x:int):
@@ -349,16 +349,16 @@ def ff(l:list, x:int):
 
 def fl(l:list, x:int):
     if len(l) > 0 and l[-1] == x:
-        return 0
-    elif len(1)>0 and l[-1] != x:
+        return len(l)
+    elif len(l)>0 and l[-1] != x:
         llen=len(l)
-        return 1 + fl(l[:llen-2])
+        return 0 + fl(l[:llen-2],x)
     else:
         return -1
    
 
 
-'''
+
 
 
 
@@ -390,9 +390,9 @@ if __name__ == '__main__':
 
 
     l1 = [-2,3,-2,3,0,1,2-1,-1,5]
-    #print (l1)
-    #print (find_first_last(l1,-2))
-
+    print (l1)
+    print (find_first_last(l1,-1))
+    '''
     # Show the tree
     tree.draw()
     tree2.draw()
@@ -441,7 +441,7 @@ if __name__ == '__main__':
     print('depth of root.right.left:', tree.depth(right.left))
     print('depth of root.right.right.right:', tree.depth(rrNode.right), rrNode.right.elem)
 
-
+'''
 
 
 
