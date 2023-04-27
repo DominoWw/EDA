@@ -334,8 +334,111 @@ class BinaryTree:
                 return 1 + self._countPairs(node.left,k) + self._countPairs(node.right, k)
             else:
                 return 0 + self._countPairs(node.left,k) + self._countPairs(node.right, k)
-            
 
+    def lwc (self, a:int, b:int):
+        if self._root:
+            if b>a:
+                return self._lwc(self._root, a,b)
+            else:
+                return self._lwc(self._root, b,a)
+        else:
+            return None
+    def _lwc(self, node:BinaryNode, a:int, b:int):
+        if node == None:
+            return None
+        elif node.elem>b:
+            return self._lwc( node.left, a,b)
+        elif node.elem < a:
+            return self._lwc( node.right, a,b)
+        elif node.elem >= a and node.elem <= b:
+            if self._myfind1(self._root, a) and self._myfind1(self._root, b):
+                return node.elem
+            else:
+                return None
+        else:
+            return None
+    
+    def _myfind1(self, nodo:BinaryNode, x:int):
+        if nodo==None:
+            return False
+        elif nodo.elem == x:
+            return True
+        elif nodo.elem < x:
+            return self._myfind1(nodo.right, x)
+        elif nodo.elem > x:
+            return self._myfind1(nodo.left, x)
+        else:
+            return False
+
+
+    def is_zig_zag(self):
+        if self._root:
+            #0 - left, 1- right
+            if self._is_zig_zag(self._root, self._root.left, self._root.right) or self._is_zig_zag(self._root, self._root.right, self._root.left):
+                return True
+        else:
+            return False
+        
+    def _is_zig_zag(self, node:BinaryNode, x:BinaryNode, nx:BinaryNode):
+        if node == None:
+            return True
+        elif x and nx==None:
+            return True * self._is_zig_zag(node.right, x.right, x.left)
+        else:
+            return False
+
+
+    def is_left_odd_right_even(self):
+        if self._root: 
+            return self._ilore(self._root.left, self._root.right)
+        else:
+            return False
+        
+    def _ilore(self, l:BinaryNode, r:BinaryNode):
+        if l== None and r==None:
+            return True
+        elif l and r==None:
+            if l.elem % 2 ==1:
+                return True * self._ilore(l.left, l.right)
+            else:
+                return False
+        elif l==None and r:
+            if r.elem % 2 == 0:
+                return True * self._ilore(r.left, r.right)
+            else:
+                return False
+        elif l.elem%2 == 1 and r.elem%2 == 0:
+            return True * self._ilore(l.left,l.right) * self._ilore(r.left, r.right)
+        else:
+            return False
+
+
+    def is_same_shape(self, otherTree):
+        if self._root ==None and otherTree._root == None:
+            return False
+        elif self._root and otherTree._root:
+            if self._iss(self._root, otherTree._root):
+                return True
+            else:
+                return False
+        else:
+            return False
+        
+    def _iss(self, node:BinaryNode, onode:BinaryNode):
+        if node == None and onode== None:
+            return True
+        elif node and onode:
+            return True and self._iss(node.left, onode.left) and (node.right, onode.right)
+        else:
+            return False
+
+
+
+
+
+
+#list            
+'''
 def find_first_last(l:list, x:int):
     return [ff(l, x), fl(l, x)]
 def ff(l:list, x:int):
@@ -355,7 +458,7 @@ def fl(l:list, x:int):
         return 0 + fl(l[:llen-2],x)
     else:
         return -1
-   
+   '''
 
 
 
@@ -386,20 +489,64 @@ if __name__ == '__main__':
     tree2._root = BinaryNode(5, tr3m,tr2n)
     
 
+    lev2 = BinaryNode(5)
+    lev1 = BinaryNode(2, None, lev2)
+    lev0 = BinaryNode(6, lev1, None)
+
+    tree3 = BinaryTree()
+    tree3._root = lev0
+    #tree3.draw()
+    #tree.draw()
    
 
 
+    b17=BinaryNode(17)
+    b20=BinaryNode(20)
+    b18=BinaryNode(18, b17, b20)
+    b8=BinaryNode(8)
+    b120=BinaryNode(120)
+    b7=BinaryNode(7, b120, b8)
+    b10=BinaryNode(10,b7,b18)
+    tree4=BinaryTree()
+    tree4._root=b10
+
+    b16=BinaryNode(16)
+    b19=BinaryNode(19)
+    b17=BinaryNode(17, b16, b19)
+    b6=BinaryNode(6)
+    b5=BinaryNode(5, None, b6)
+    b9=BinaryNode(9,b5,b17)
+
+
+
+
+    tree5=BinaryTree()
+    tree5._root=b9
+
+    tree4.draw()
+    tree5.draw()
+
+    print("Iss: ",tree4.is_same_shape(tree5))
+    '''
+    print("t4 ilore:", tree4.is_left_odd_right_even())
+    print("lwc: ", tree.lwc(5,30))
+    print("is zig zag: ", tree.is_zig_zag())
+    print("tree3 zig:", tree3.is_zig_zag())
+    '''
+
+#list
+'''
     l1 = [-2,3,-2,3,0,1,2-1,-1,5]
     print (l1)
     print (find_first_last(l1,-1))
-    '''
-    # Show the tree
-    tree.draw()
-    tree2.draw()
+'''     
+    #Show the tree
     
+    #tree2.draw()
     
-    
-    
+
+#main
+'''
     print('pairs:', tree.countPairs(tree2, 11))
 
     print('tree 2 min: ', tree2.min_elem())
