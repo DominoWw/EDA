@@ -523,11 +523,16 @@ if __name__ == '__main__':
     tree5=BinaryTree()
     tree5._root=b9
 
-    tree4.draw()
-    tree5.draw()
+    #tree4.draw()
+    #tree5.draw()
+    
 
+    print(False and True, False or False, True and True, True*False, True * True)
+
+
+'''
     print("Iss: ",tree4.is_same_shape(tree5))
-    '''
+    
     print("t4 ilore:", tree4.is_left_odd_right_even())
     print("lwc: ", tree.lwc(5,30))
     print("is zig zag: ", tree.is_zig_zag())
