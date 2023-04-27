@@ -434,6 +434,24 @@ class BinaryTree:
 
 
 
+    def sumInsideRange(self, min:int, max:int) -> int:
+        if self._root and min <=max:
+            return self._isr(self._root, min, max)
+        else:
+            return None
+    
+    def _isr(self, node:BinaryNode, min: int, max: int) -> int:
+        if node == None:
+            return 0
+        elif node.left== None and node.right == None:
+            return 0
+        elif node.elem < min:
+            return 0 + self._isr(node.left, min, max)
+        elif node.elem > max:
+            return 0 + self._isr(node.right, min, max)
+        else:
+            return node.elem + self._isr(node.left, min, max) + self._isr(node.right, min, max)
+
 
 
 
@@ -519,7 +537,7 @@ if __name__ == '__main__':
 
 
 
-
+    tree.draw()
     tree5=BinaryTree()
     tree5._root=b9
 
@@ -527,7 +545,7 @@ if __name__ == '__main__':
     #tree5.draw()
     
 
-    print(False and True, False or False, True and True, True*False, True * True)
+    print(tree.sumInsideRange(4,21))
 
 
 '''
