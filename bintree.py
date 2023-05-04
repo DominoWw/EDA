@@ -548,7 +548,7 @@ if __name__ == '__main__':
     print(tree.sumInsideRange(4,21))
 
 
-'''
+    '''
     print("Iss: ",tree4.is_same_shape(tree5))
     
     print("t4 ilore:", tree4.is_left_odd_right_even())
@@ -557,19 +557,19 @@ if __name__ == '__main__':
     print("tree3 zig:", tree3.is_zig_zag())
     '''
 
-#list
-'''
+    #list
+    '''
     l1 = [-2,3,-2,3,0,1,2-1,-1,5]
     print (l1)
     print (find_first_last(l1,-1))
-'''     
+    '''     
     #Show the tree
     
     #tree2.draw()
     
 
-#main
-'''
+    #main
+    '''
     print('pairs:', tree.countPairs(tree2, 11))
 
     print('tree 2 min: ', tree2.min_elem())
@@ -590,7 +590,7 @@ if __name__ == '__main__':
     print('Height of the tree:', tree.height())
     print('root of the tree:', tree._height(root))
     print()
-
+'''
     # traversals
     tree.preorder()
     tree.postorder()
@@ -603,15 +603,13 @@ if __name__ == '__main__':
     # save into a list
     print("Level order:", tree.level_order_list())
     print()
-
+    '''
     # depth of some nodes
     print('depth of root:', tree.depth(root))
     print('depth of root.left:', tree.depth(left))
     print('depth of root.right:', tree.depth(right))
     print('depth of root.right.left:', tree.depth(right.left))
     print('depth of root.right.right.right:', tree.depth(rrNode.right), rrNode.right.elem)
-
-'''
-
+    '''
 
 
