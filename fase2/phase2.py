@@ -82,23 +82,66 @@ class BST2(BinarySearchTree):
             return
         
 
+#merge recursive
+def intersection(node:BinaryNode, input_tree2:BinarySearchTree, output:BinarySearchTree) -> None:
+    if node:
+        if input_tree2.search(node.elem) != None:
+            output.insert(node.elem)
+
+        intersection(node.left, input_tree2, output)
+        intersection(node.right, input_tree2, output)
+        
+
+def merge(node:BinaryNode, output:BinarySearchTree) -> None:
+    if node:
+        if output.search(node.elem) == None:
+            output.insert(node.elem)
+        
+        merge(node.left, output)
+        merge(node.right, output)
 
 
+def difference(node:BinaryNode, input_tree2:BinarySearchTree, output:BinarySearchTree) -> None:
+    if node:
+        if input_tree2.search(node.elem) == None:
+            output.insert(node.elem)
 
-
-
+        difference(node.left, input_tree2, output)
+        difference(node.right, input_tree2, output)
 
 def create_tree(input_tree1: BinarySearchTree, input_tree2: BinarySearchTree, opc: str) -> BinarySearchTree:
-    ...
+    output=BinarySearchTree()
+    if opc == "merge":
+        #we will add missing node from tree 1 to nodes from tree 2
+        output=input_tree2
+        merge(input_tree1._root, output)
+
+
+
+
+
+
+
+
+    elif opc == "intersection":
+        intersection(input_tree1._root, input_tree2, output)
+
+    elif opc == "difference":
+        difference(input_tree1._root, input_tree2, output)
+    
+    
+    return output
+    
+
+
+
     
 
 
 # Some usage examples
 if __name__ == '__main__':
     input_list = [50, 55, 54, 20, 60, 15, 18, 5, 25, 24, 75, 80]
-    # input_list_01 = [5, 1, 7, 9, 23]
-    # input_list_02 = [1, 9, 11]
-
+    
     task1 = [14,11,18,19,16,13,10,5,12,15,17,30,31,29,6,4,2,8,24,33,34,32,25,23,9,7,3,1,21,27,36,37,35,28,26,22,20]
 
     treeTask1=BST2()
@@ -107,30 +150,35 @@ if __name__ == '__main__':
     treeTask1.draw()
 
 
-    # tree0=BST2()
-    # for x in input_list:
-    #     tree0.insert(x)
-    # tree0.draw()
+    tree0=BST2()
+    for x in input_list:
+        tree0.insert(x)
+    tree0.draw()
+
+    # input_list_01 = [5, 1, 7, 9, 23]
+    # input_list_02 = [1, 9, 11]
 
 
 
-
-    # input_list_01 = [5, 12, 2, 1, 3, 9]
-    # input_list_02 = [9, 3, 21]
+    input_list_01 = [5, 12, 2, 1, 3, 9]
+    input_list_02 = [9, 3, 21]
 
     # Build and draw first tree
-    # tree1 = BST2()
-    # for x in input_list_01:
-    #     tree1.insert(x)
-    #tree1.draw()
+    tree1 = BST2()
+    for x in input_list_01:
+        tree1.insert(x)
+    tree1.draw()
 
     # Build and draw second tree
-    # tree2 = BinarySearchTree()
-    # for x in input_list_02:
-    #     tree2.insert(x)
-    #tree2.draw()
+    tree2 = BinarySearchTree()
+    for x in input_list_02:
+        tree2.insert(x)
+    tree2.draw()
 
     function_names = ["merge", "intersection", "difference"]
+
+    tree_output=create_tree(tree1, tree2, "difference")
+    tree_output.draw()
 
 
     '''
@@ -141,5 +189,5 @@ if __name__ == '__main__':
     '''
 
 
-    X=treeTask1.find_dist_k(30,5)
-    print(X)
+    # X=treeTask1.find_dist_k(30,5)
+    # print(X)
