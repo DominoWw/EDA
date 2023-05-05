@@ -217,3 +217,64 @@ class BinaryTree:
             self._draw(prefix + "     ", node.right, False)
             print(prefix + "|-- " + str(node.elem))
             self._draw(prefix + "     ", node.left, True)
+
+
+
+if __name__ == '__main__':
+    tree = BinaryTree()
+    newNode = BinaryNode(2)
+    left = BinaryNode(3, newNode, None)
+    right = BinaryNode(9)
+    right.left = BinaryNode(8)
+    right.right = BinaryNode(20)
+    rrNode = right.right
+    rrNode.right = BinaryNode(30)
+
+    root = BinaryNode(5, left, right)
+    tree._root = root
+
+
+
+    tree2 = BinaryTree()
+    tr2m = BinaryNode(6)
+    tr2n= BinaryNode(10,tr2m, None)
+    tr3m=BinaryNode(4)
+    
+    tree2._root = BinaryNode(5, tr3m,tr2n)
+    
+
+    lev2 = BinaryNode(5)
+    lev1 = BinaryNode(2, None, lev2)
+    lev0 = BinaryNode(6, lev1, None)
+
+    tree3 = BinaryTree()
+    tree3._root = lev0
+    #tree3.draw()
+    #tree.draw()
+   
+
+
+    b17=BinaryNode(17)
+    b20=BinaryNode(20)
+    b18=BinaryNode(18, b17, b20)
+    b8=BinaryNode(8)
+    b120=BinaryNode(120)
+    b7=BinaryNode(7, b120, b8)
+    b10=BinaryNode(10,b7,b18)
+    tree4=BinaryTree()
+    tree4._root=b10
+
+    b16=BinaryNode(16)
+    b19=BinaryNode(19)
+    b17=BinaryNode(17, b16, b19)
+    b6=BinaryNode(6)
+    b5=BinaryNode(5, None, b6)
+    b9=BinaryNode(9,b5,b17)
+
+
+
+    tree.draw()
+    tree5=BinaryTree()
+    tree5._root=b9
+
+    print("Level order:", tree.level_order_list())
