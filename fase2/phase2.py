@@ -27,7 +27,7 @@ class BST2(BinarySearchTree):
                 #proper nodes' values are going to be placed in the list L, that is going to be returned at the end
                 #for convenience, in order not to check the node with .search() function, we provide node N as well 
                 self._parent_nodes(n, k, d, self._root, L, N)
-            return L
+            return sorted(L)
         else:
             return []
 
@@ -85,7 +85,14 @@ class BST2(BinarySearchTree):
 
 
 def create_tree(input_tree1: BinarySearchTree, input_tree2: BinarySearchTree, opc: str) -> BinarySearchTree:
-    
+
+    #copy function for merge function
+    def copy_tree(node:BinaryNode, output:BinarySearchTree) -> None:
+        if node:
+            output.insert(node.elem)
+            copy_tree(node.left, output)
+            copy_tree(node.right, output)
+
     #inner funcion intersection - recursive
     def intersection(node:BinaryNode, input_tree2:BinarySearchTree, output:BinarySearchTree) -> None:
         if node:
@@ -117,7 +124,7 @@ def create_tree(input_tree1: BinarySearchTree, input_tree2: BinarySearchTree, op
 
     if opc == "merge":
         #we will add missing node from tree 1 to nodes from tree 2
-        output=input_tree2
+        copy_tree(input_tree2._root, output)
         merge(input_tree1._root, output)
 
     elif opc == "intersection":
@@ -176,9 +183,11 @@ if __name__ == '__main__':
 
     function_names = ["merge", "intersection", "difference"]
 
-    tree_output=create_tree(tree1, tree2, "difference")
+    tree_output=create_tree(tree1, tree2, "merge")
     print("Output:")
     tree_output.draw()
+    print("Tree 2 after merge: ")
+    tree2.draw()
 
 
     '''
