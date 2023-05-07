@@ -12,6 +12,7 @@ from phase2 import create_tree
 import unittest
 
 
+#function for merging lists for unittests
 def merge_lists(a:list, b:list) -> list:
     output=a.copy()
 
@@ -21,10 +22,12 @@ def merge_lists(a:list, b:list) -> list:
     
     return sorted(output)
 
+#function for finding intersection of lists for unittests
 def intersection(a:list, b:list) -> list:
     output = [value for value in a if value in b]
     return sorted(output)
 
+#function for finding difference of lists for unittests
 def difference(a:list, b:list) -> list:
     output=[]
     for i in a:
@@ -44,38 +47,48 @@ class Test(unittest.TestCase):
 
         self.lists=[input_list_01,input_list_02, input_list_03, input_list_04]
         
-
         
-
         self.tree1 = BST2()
         for x in input_list_01:
             self.tree1.insert(x)
-        print("Tree 1: ")
-        self.tree1.draw()
-
+        
         
         self.tree2 = BST2()
         for x in input_list_02:
             self.tree2.insert(x)
-        print("Tree 2: ")
-        self.tree2.draw()
+
 
 
         self.tree3 = BST2()
         for x in input_list_03:
             self.tree3.insert(x)
-        print("Tree 3: ")
-        self.tree3.draw()
+    
 
 
         self.tree4 = BST2()
         for x in input_list_04:
             self.tree4.insert(x)
-        print("Tree 4: ")
-        self.tree4.draw()
+      
+
+        #tree printing variable
+        p=False        
+
+        #print or not?
+        if p:
+            print("Tree 1: ")
+            self.tree1.draw()
+            
+            print("Tree 2: ")
+            self.tree2.draw()
+            
+            print("Tree 3: ")
+            self.tree3.draw()
+            
+            print("Tree 4: ")
+            self.tree4.draw()
 
 
-        self.function_names = ["merge", "intersection", "difference"]
+       
         
 
        
@@ -83,6 +96,7 @@ class Test(unittest.TestCase):
 
         #Trees:
 
+        #Merge
         self.tree1_2_M=create_tree(self.tree1, self.tree2, "merge")
         self.tree1_3_M=create_tree(self.tree1, self.tree3, "merge")
         self.tree1_4_M=create_tree(self.tree1, self.tree4, "merge")
@@ -91,6 +105,7 @@ class Test(unittest.TestCase):
         self.tree3_4_M=create_tree(self.tree3, self.tree4, "merge")
 
 
+        #Intersection
         self.tree1_2_I=create_tree(self.tree1, self.tree2, "intersection")
         self.tree1_3_I=create_tree(self.tree1, self.tree3, "intersection")
         self.tree1_4_I=create_tree(self.tree1, self.tree4, "intersection")
@@ -99,6 +114,8 @@ class Test(unittest.TestCase):
         self.tree3_4_I=create_tree(self.tree3, self.tree4, "intersection")
 
 
+
+        #Difference
         self.tree1_2_D=create_tree(self.tree1, self.tree2, "difference")
         self.tree1_3_D=create_tree(self.tree1, self.tree3, "difference")
         self.tree1_4_D=create_tree(self.tree1, self.tree4, "difference")
@@ -114,13 +131,6 @@ class Test(unittest.TestCase):
         self.tree4_1_D=create_tree(self.tree4, self.tree1, "difference")
         self.tree4_2_D=create_tree(self.tree4, self.tree2, "difference")
         self.tree4_3_D=create_tree(self.tree4, self.tree3, "difference")
-
-
-
-
-
-        
-
 
     def test_test01(self):
         
