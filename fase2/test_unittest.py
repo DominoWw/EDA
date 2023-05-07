@@ -2,7 +2,8 @@
 """
 Test program comparing solutions with the builtin list-based one.
 
-@author: EDA Team
+@author: EDA Team 6 / 85*
+NIAs: 100502848 - 100451061
 """
 
 # Classes provided by EDA Team
