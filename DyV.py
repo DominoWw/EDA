@@ -96,17 +96,21 @@ def sum_multiple_5(L:list)->int:
     return left+right
 
 def get_words_len_lower_2(L:list)->list:
-    if L==None:
-        return
+    if L is None or len(L)==0:
+        return []
     if len(L)==1:
-        if len(L[0])<=2:
-            return L[0]
+        w=L[0]
+        if len(w)<=2:
+            return [w]
+        else:
+            return []
         
     m=len(L)//2
     left=get_words_len_lower_2(L[0:m])
     right=get_words_len_lower_2(L[m:])
 
     return left+right
+
 
 
 
