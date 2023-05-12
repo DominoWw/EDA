@@ -186,10 +186,9 @@ def _quicksort_central(L:list, left:int, right:int):
 
 
 
-L=[1,5,7,2,3,4,15,79,81]
+L=[1,3,2,4]
 
 print(L)
-#Z=quicksort_central(L)
-#print(Z)
+print(quicksort_central(L))
 
 
