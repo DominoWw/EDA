@@ -149,13 +149,47 @@ def merge_sort_merge(L1:list, L2:list)->list:
 
     return output
         
-    
+
+def quicksort_central(L:list):
+        _quicksort_central(L,0,len(L)-1)
+
+
+def _quicksort_central(L:list, left:int, right:int):
+    m=(left+right)//2
+
+
+    p=L[m]
+    i=left
+    j=right
+
+    while i<=j:
+        while L[i]<p:
+            i+=1
+
+        while L[j]>p:
+            j-=1
+
+        if i<j:
+            L[i],L[j]=L[j],L[i]
+            i+=1
+            j-=1
+
+
+
+    if j>left:
+        _quicksort_central(L,left, j)
+
+    if i<right:
+        _quicksort_central(L,i,right)
 
 
 
 
 
+L=[1,5,7,2,3,4,15,79,81]
+
+print(L)
+#Z=quicksort_central(L)
+#print(Z)
 
 
-
-print(merge_sort([2,3,5,3,4,5,23]))
