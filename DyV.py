@@ -13,9 +13,6 @@ def find_max(L:list) -> int:
     elif len(L)==1:
         return L[0]
     
-
-
-
 def find_min_max(L:list) -> tuple:
     if len(L) == 1:
         return L[0], L[0]
@@ -32,7 +29,6 @@ def find_min_max(L:list) -> tuple:
             return min(min1,min2), max(max1,max2)
         else:
             return None, None
-
 
 def find_lowest_even_odd(L:list) -> tuple:
     if L==None:
@@ -66,7 +62,6 @@ def find_lowest_even_odd(L:list) -> tuple:
             even_final=even1 
 
         return even_final,odd_final
-
 
 def sum_list(L:list)->int:
     if L==None:
@@ -111,7 +106,56 @@ def get_words_len_lower_2(L:list)->list:
 
     return left+right
 
+def merge_sort(L:list)->list:
+    if len(L)==0 or L is None:
+        return []
+    if len(L)==1:
+        return L
+    
+
+    
+    m=len(L)//2
+    left=merge_sort(L[0:m])
+    right=merge_sort(L[m:])
+
+    return merge_sort_merge(right,left)
+
+def merge_sort_merge(L1:list, L2:list)->list:
+    output=[]
+
+    
+    i=0
+    j=0
+
+    while i<len(L1) and j<len(L2):
+        if L1[i] < L2[j]:
+            output.append(L1[i])
+            i+=1
+
+        else:
+            output.append(L2[j])
+            j+=1
+
+    if i==len(L1):
+        while j<len(L2):
+            output.append(L2[j])
+            j+=1
+
+    if j==len(L2):
+        while i<len(L1):
+            output.append(L1[i])
+            i+=1
+
+
+    return output
+        
+    
 
 
 
-print(get_words_len_lower_2(["anfdjk", "sd", "ddadds", "dd", "f", " "]))
+
+
+
+
+
+print(merge_sort([2,3,5,3,4,5,23]))
