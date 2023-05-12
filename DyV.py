@@ -169,7 +169,7 @@ def _quicksort_central(L:list, left:int, right:int):
         while L[j]>p:
             j-=1
 
-        if i<j:
+        if i<=j:
             L[i],L[j]=L[j],L[i]
             i+=1
             j-=1
@@ -189,6 +189,7 @@ def _quicksort_central(L:list, left:int, right:int):
 L=[1,3,2,4]
 
 print(L)
-print(quicksort_central(L))
+quicksort_central(L)
+print(L)
 
 
