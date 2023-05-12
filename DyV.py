@@ -110,4 +110,4 @@ def get_words_len_lower_2(L:list)->list:
 
 
 
-print(get_words_len_lower_2("anfdjk","sd", "ddadds", "dd", "f", " "))
+print(get_words_len_lower_2(["anfdjk", "sd", "ddadds", "dd", "f", " "]))
