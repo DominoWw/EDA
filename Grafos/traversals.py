@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from graph import Graph
+from graph2 import Graph
+import sys
 
 class Graph2(Graph):
     """ Graph2 is a Graph's subclass. In this class,
@@ -91,18 +92,155 @@ class Graph2(Graph):
         visited_vertex[vertex] = True
         # print(vertex, end = ' ')
         # Instead of printing the index, we have to print its label
-        print(vertex, end=' ')
+        #print(vertex, end=' ')
         # Recur for all the vertices  adjacent to this vertex
         for adj in self._vertices[vertex]:
             if not visited_vertex[adj.vertex]:
                 # self._dfs(adj.vertex, visited_vertex)
-                self._dfs_iterative(adj.vertex, visited_vertex)
+                self._dfs(adj.vertex, visited_vertex)
+
+
+
+    def non_accessible(self, vertex) ->list:
+        acc=[]
+        visited={}
+
+        for v in self._vertices:
+            visited[v]=False
+
+        self._dfs(vertex,visited)
+        
+        for v in self._vertices:
+            if visited[v]==False:
+                acc.append(v)
+
+        return acc
+    
+
+    def get_reachable(self, vertex) -> list:
+        acc=[]
+        visited={}
+
+        for v in self._vertices:
+            visited[v]=False
+
+        self._dfs(vertex,visited)
+        
+        for v in self._vertices:
+            if visited[v] and v!=vertex:
+                acc.append(v)
+
+        return acc
+    
+        
+    def is_connected(self) -> bool:
+
+        outcome=True
+        visited={}
+        for v in self._vertices:
+            visited[v]=False
+
+
+        x=list(self._vertices.keys())[0]
+        self._dfs(x, visited)
+
+        for v in self._vertices:
+            if visited[v]==False:
+                outcome=False
+        
+        return outcome
+
+        
+    def is_bridge(self, vertex_u, vertex_v)->bool:
+
+
+        
+        if vertex_u not in self._vertices:
+            return "u is not a vertex"
+
+        if vertex_v not in self._vertices:
+            return "v is not a vertex"
+
+        if vertex_v ==vertex_u:
+            return "is the same vertex!"
+        
+        if vertex_u not in self._vertices[vertex_v]:
+            return "no edge!"
+        
+        self.remove_edge(vertex_v, vertex_u)
+
+        if self.is_connected():
+            outcome= False
+        else:
+            outcome= True
+        
+        self.add_edge(vertex_v, vertex_u)
+        return outcome
+    
+      
+    def minDist(self, visited, distances):
+        
+        min=sys.maxsize
+        
+
+        for i in self._vertices:
+            n=i._vertex
+
+            if visited[n]==False and distances[n] <= min:
+                min=distances[n]
+                outcome=i
+
+        return outcome
+
+
+
+    def minPath(self, start, end)->list:
+
+        if start not in self._vertices:
+            return []
+        
+        if end not in self._vertices:
+            return []
+        
+        previous={}
+        distances={}
+        visited={}
+
+
+        for v in self._vertices:
+            previous[v]=None
+            distances[v]=sys.maxsize()
+            visited[v]=False
+
+        #marcamos origen 
+        distances[start]=0
+
+        for n in range (len(self._vertices)):
+
+            u=self.minDist(visited, distances)
+
+            for adj in self._vertices[u]
+
+
+
+            for x in self._vertices[start]
+
+
+
+
+
+
+
+
+
 
 
 if __name__ == '__main__':
     # Now, we use the implementation to represent and traverse this graph:
     # <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/CPT-Graphs-directed-weighted-ex1.svg/722px-CPT-Graphs-directed-weighted-ex1.svg.png' width='25%'/>
 
+
+    '''
     labels = ['A', 'B', 'C', 'D', 'E']
 
     g = Graph2(labels)
@@ -115,9 +253,8 @@ if __name__ == '__main__':
     g.add_edge('C', 'D', 32)  # C->(32)D
     g.add_edge('E', 'A', 7)   # E->(7)A
 
-    print(g)
-    print()
 
+    
     g.bfs()
     print()
 
@@ -153,6 +290,9 @@ if __name__ == '__main__':
     # g.add_edge('A','H',8)
 
     print(g)
+
+    
+
 
     print('bfs traversal from A (A is the first vertex):')
     g.bfs()
@@ -200,3 +340,32 @@ if __name__ == '__main__':
         print('\n\n')
 
 
+    '''
+
+
+
+    vlabels=['A', 'B', 'C', 'D', 'E']
+    z=Graph2(vlabels)
+
+    z.add_edge('A','B')
+    #z.add_edge('B','A')
+
+    z.add_edge('B','C')
+    z.add_edge('C','B')
+
+    z.add_edge('C','E')
+    z.add_edge('E','C')
+
+    z.add_edge('A','E')
+    z.add_edge('E','A')
+
+
+    print(z)
+
+    
+    print(z.get_reachable('E'))
+    print("Is connected: ", z.is_connected())
+
+
+    print(list(z._vertices['A']))
+    print (z.is_bridge('B','A'))
