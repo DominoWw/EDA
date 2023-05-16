@@ -234,20 +234,19 @@ class Graph2(Graph):
         minpath=distances[end]
 
         print(minpath)
-
         res=[]
-        res.append(end)
-        #res.append[end]
+        if minpath!=sys.maxize:
+            
+           
+            #res.append[end]
 
-        prev = previous[end]
-        while prev is not None:
-            res.append(prev)
-            prev=previous[prev]
-     
+            prev = previous[end]
+            while prev is not None:
+                res.insert(0,prev)
+                prev=previous[prev]
+        
+            res.append(end)
 
-
-        print(previous)
-        res.reverse()
         return res
     
 
@@ -378,11 +377,9 @@ if __name__ == '__main__':
     z.add_edge('B','C',1)
     z.add_edge('C','B',1)
 
-    z.add_edge('C','E',1)
     z.add_edge('E','C',1)
 
-    z.add_edge('A','E',5)
-
+   
     z.add_edge('B','D',1)
 
     print(z)
