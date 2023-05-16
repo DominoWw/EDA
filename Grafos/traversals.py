@@ -236,6 +236,7 @@ class Graph2(Graph):
         print(minpath)
 
         res=[]
+        res.append(end)
         #res.append[end]
 
         prev = previous[end]
@@ -243,7 +244,11 @@ class Graph2(Graph):
             res.append(prev)
             prev=previous[prev]
      
-        return res.reverse()
+
+
+        print(previous)
+        res.reverse()
+        return res
     
 
 
@@ -376,8 +381,7 @@ if __name__ == '__main__':
     z.add_edge('C','E',1)
     z.add_edge('E','C',1)
 
-    z.add_edge('A','E',1)
-    z.add_edge('E','A',1)
+    z.add_edge('A','E',5)
 
     z.add_edge('B','D',1)
 
@@ -387,7 +391,7 @@ if __name__ == '__main__':
     print(z.minPath('A','E'))
 
 
-
+    '''
     labels = ['A', 'B', 'C', 'D', 'E']
     g = Graph2(labels)
     # Now, we add the edges
@@ -449,3 +453,4 @@ if __name__ == '__main__':
     g.add_edge('d', 'e', 6)
     g.add_edge('e', 'f', 9)
     print(g)
+    '''
