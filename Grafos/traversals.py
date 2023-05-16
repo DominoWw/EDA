@@ -178,19 +178,19 @@ class Graph2(Graph):
         return outcome
     
       
-    def minDist(self, visited, distances):
+    def minDist(self, visited:dict, distances:dict):
         
-        min=sys.maxsize
+        min_d=1000
         
+        res=None
+        for i in self._vertices.keys():
+            
 
-        for i in self._vertices:
-            n=i._vertex
+            if visited[i]==False and distances[i] <= min_d:
+                min_d=distances[i]
+                res=i
 
-            if visited[n]==False and distances[n] <= min:
-                min=distances[n]
-                outcome=i
-
-        return outcome
+        return res
 
 
 
@@ -209,11 +209,12 @@ class Graph2(Graph):
 
         for v in self._vertices.keys():
             previous[v]=None
-            distances[v]=sys.maxsize()
+            distances[v]=sys.maxsize
             visited[v]=False
 
         #marcamos origen 
         distances[start]=0   
+    
 
 
         for n in range (len(self._vertices)):
@@ -233,7 +234,17 @@ class Graph2(Graph):
         minpath=distances[end]
 
         print(minpath)
-        return []
+
+        res=[]
+        #res.append[end]
+
+        prev = previous[end]
+        while prev is not None:
+            res.append(prev)
+            prev=previous[prev]
+     
+        return res.reverse()
+    
 
 
 
@@ -356,20 +367,85 @@ if __name__ == '__main__':
     vlabels=['A', 'B', 'C', 'D', 'E']
     z=Graph2(vlabels)
 
-    z.add_edge('A','B')
+    z.add_edge('A','B',1)
     #z.add_edge('B','A')
 
-    z.add_edge('B','C')
-    z.add_edge('C','B')
+    z.add_edge('B','C',1)
+    z.add_edge('C','B',1)
 
-    z.add_edge('C','E')
-    z.add_edge('E','C')
+    z.add_edge('C','E',1)
+    z.add_edge('E','C',1)
 
-    z.add_edge('A','E')
-    z.add_edge('E','A')
+    z.add_edge('A','E',1)
+    z.add_edge('E','A',1)
 
+    z.add_edge('B','D',1)
 
     print(z)
 
     
-    z.minDist('A','E')
+    print(z.minPath('A','E'))
+
+
+
+    labels = ['A', 'B', 'C', 'D', 'E']
+    g = Graph2(labels)
+    # Now, we add the edges
+    g.add_edge('A', 'C')  # A->(12)C
+    g.add_edge('A', 'D')  # A->(60)D
+    g.add_edge('B', 'A')  # B->(10)A
+    g.add_edge('C', 'B')  # C->(20)B
+    g.add_edge('C', 'D')  # C->(32)D
+    g.add_edge('E', 'A')  # E->(7)A
+
+    print(g)
+
+    # g.dijkstra('A')
+    print('minimum path from {} to {}: {}'.format('A', 'B', g.minimum_path('A', 'B')))
+    print('minimum path from {} to {}: {}'.format('A', 'E', g.minimum_path('A', 'E')))
+    print('minimum path from {} to {}: {}'.format('J', 'E', g.minimum_path('J', 'E')))
+
+    labels = ['A', 'B', 'C', 'D', 'E']
+    g = Graph2(labels)
+
+    g.add_edge('A', 'C', 12)  # A->(12)C
+    g.add_edge('A', 'D', 60)  # A->(60)D
+    g.add_edge('B', 'A', 10)  # B->(10)A
+    g.add_edge('C', 'B', 20)  # C->(20)B
+    g.add_edge('C', 'D', 32)  # C->(32)D
+    g.add_edge('E', 'A', 7)  # E->(7)A
+    # Now, we add the edges
+
+    print(g)
+    print('minimum path from {} to {}: {}'.format('A', 'B', g.minimum_path('A', 'B')))
+    print('minimum path from {} to {}: {}'.format('A', 'E', g.minimum_path('A', 'E')))
+    print('minimum path from {} to {}: {}'.format('J', 'E', g.minimum_path('J', 'E')))
+
+
+
+    #
+    labels = ['A', 'B', 'C']
+    g = Graph2(labels)
+    g.add_edge('A', 'B', -1)
+    g.add_edge('B', 'C', -1)
+    g.add_edge('C', 'A', -1)
+    print(g)
+   
+    # Exercise: Calculate the minimum path from
+    # 'a' to the rest of the vertices in this graph:
+    # <img src='https://www.bogotobogo.com/python/images/Dijkstra/graph_diagram.png' src='25%'/>
+    #
+    labels = ['a', 'b', 'c', 'd', 'e', 'f']
+    g = Graph2(labels, False)
+    #
+    # # Now, we add the edges
+    g.add_edge('a', 'b', 7)
+    g.add_edge('a', 'c', 9)
+    g.add_edge('a', 'f', 14)
+    g.add_edge('b', 'c', 10)
+    g.add_edge('b', 'd', 15)
+    g.add_edge('c', 'd', 11)
+    g.add_edge('c', 'f', 2)
+    g.add_edge('d', 'e', 6)
+    g.add_edge('e', 'f', 9)
+    print(g)
