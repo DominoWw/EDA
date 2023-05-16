@@ -207,24 +207,33 @@ class Graph2(Graph):
         visited={}
 
 
-        for v in self._vertices:
+        for v in self._vertices.keys():
             previous[v]=None
             distances[v]=sys.maxsize()
             visited[v]=False
 
         #marcamos origen 
-        distances[start]=0
+        distances[start]=0   
+
 
         for n in range (len(self._vertices)):
 
             u=self.minDist(visited, distances)
+            visited[u]=True
 
-            for adj in self._vertices[u]
+            for adj in self._vertices[u]:
+                i=adj.vertex
+                w=adj.weight
 
+                if visited[i] ==False and distances[i]>w+distances[u]:
+                    distances[i]=w+distances[u]
+                    previous[i]=u
+            
 
+        minpath=distances[end]
 
-            for x in self._vertices[start]
-
+        print(minpath)
+        return []
 
 
 
@@ -363,9 +372,4 @@ if __name__ == '__main__':
     print(z)
 
     
-    print(z.get_reachable('E'))
-    print("Is connected: ", z.is_connected())
-
-
-    print(list(z._vertices['A']))
-    print (z.is_bridge('B','A'))
+    z.minDist('A','E')
