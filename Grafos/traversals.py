@@ -192,70 +192,106 @@ class Graph2(Graph):
 
         return res
 
+    
 
+    def get_adjacentes(self, vertex)->list:
 
-    def minPath(self, start, end)->list:
-
-        if start not in self._vertices:
+        if vertex not in self._vertices.keys():
             return []
-        
-        if end not in self._vertices:
+
+        outcome=[]
+
+        for v in self._vertices[vertex]:
+            outcome.append(v.vertex)
+
+
+        return outcome
+
+
+    def non_acc(self, vertex) -> list:
+        if vertex not in self._vertices.keys():
             return []
-        
-        previous={}
-        distances={}
-        visited={}
 
-
+        visited ={}
         for v in self._vertices.keys():
-            previous[v]=None
-            distances[v]=sys.maxsize
             visited[v]=False
 
-        #marcamos origen 
-        distances[start]=0   
-    
-
-
-        for n in range (len(self._vertices)):
-
-            u=self.minDist(visited, distances)
-            visited[u]=True
-
-            for adj in self._vertices[u]:
-                i=adj.vertex
-                w=adj.weight
-
-                if visited[i] ==False and distances[i]>w+distances[u]:
-                    distances[i]=w+distances[u]
-                    previous[i]=u
-            
-
-        minpath=distances[end]
-
-        print(minpath)
-        res=[]
-        if minpath!=sys.maxize:
-            
-           
-            #res.append[end]
-
-            prev = previous[end]
-            while prev is not None:
-                res.insert(0,prev)
-                prev=previous[prev]
         
-            res.append(end)
+        self._non_acc(vertex, visited)
 
-        return res
-    
+        outcome=[]
+        for v in self._vertices.keys():
+            if not visited[v]:
+                outcome.append(v)
+
+        return outcome
+
+    def _non_acc(self, vertex, visited:dict):
+        visited[vertex]=True
+        for v in self._vertices[vertex]:
+            if visited[v.vertex]==False:
+                self._non_acc(v.vertex, visited)
 
 
+    def get_reach_dfs(self, vertex)->list:
+        if vertex not in self._vertices.keys():
+            return []
+        
+        visited={}
+
+        for v in self._vertices.keys():
+            visited[v]=False
+
+        self._get_reach_dfs(vertex, visited)
+
+        outcome=[]
+        for v in self._vertices.keys():
+            if visited[v]:
+                outcome.append(v)
+        
+        return outcome
+
+    def _get_reach_dfs(self, vertex, visited:dict):
+        
+        visited[vertex]=True
+        for v in self._vertices[vertex]:
+            if not visited[v.vertex]:
+                self._get_reach_dfs(v.vertex, visited)
 
 
+    def get_reach_bfs(self, vertex) ->list:
+        if vertex not in self._vertices.keys():
+            return []
+        
+        visited ={}
 
+        for v in self._vertices.keys():
+            visited[v]=False
 
+        
+        self._get_reach_bfs(vertex, visited)
 
+        outcome=[]
+        for v in self._vertices.keys():
+            if visited[v]:
+                outcome.append(v)
+        
+        return outcome
+
+    def _get_reach_bfs(self, vertex, visited:dict):
+        
+        queue=[vertex]
+
+        while len(queue)>0:
+
+            vertex=queue.pop(0)
+            for v in self._vertices[vertex]:
+                if not visited[v.vertex]:
+                    queue.append(v.vertex)
+
+            visited[vertex]=True
+
+        
 
 
 
@@ -385,7 +421,8 @@ if __name__ == '__main__':
     print(z)
 
     
-    print(z.minPath('A','E'))
+    print(z.get_reach_bfs('B'))
+    print(z.non_acc('B'))
 
 
     '''
