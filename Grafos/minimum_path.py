@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import sys
-from graph import Graph
+from graph2 import Graph
 import math
 class Graph3(Graph):
     """ Algorithms for shortest path """
@@ -127,6 +127,90 @@ class Graph3(Graph):
             prev = previous[prev]
 
         return result, distances[end]
+    
+
+
+    def my_mind(self, visited, distances):
+        
+        mind=math.inf
+        min_vert=None
+
+        for v in self._vertices.keys():
+            if visited[v]==False and distances[v]<=mind:
+                min_vert=v
+                mind=distances[v]
+
+
+        return min_vert
+
+
+
+
+    def dy_dij(self, origin):
+
+        distances={}
+        previous={}
+        visited={}
+
+        for v in self._vertices.keys():
+            distances[v]=math.inf
+            previous[v]=None
+            visited[v]=False
+
+        distances[origin]=0
+        
+
+        for i in range (len(self._vertices.keys())):
+            u=self.my_mind(visited,distances)
+            visited[u]=True
+
+            for v in self._vertices[u]:
+                dist=v.weight
+                vname=v.vertex
+
+                if distances[vname]>distances[u]+dist:
+                    previous[vname]=u
+                    distances[vname]=distances[u]+dist
+
+
+        return distances,previous
+        
+
+
+
+    #lista vacia y inf
+
+    def my_md(self, start, end):
+        
+        
+        if start not in self._vertices.keys():
+            return [], math.inf
+        
+        if end not in self._vertices.keys():
+            return [], math.inf
+        
+        
+        
+        distances, previous = self.dy_dij(start)
+
+        mid_dist=distances[end]
+
+        path=[]
+        v=end
+        while v:
+            path.insert(0,v)
+            v=previous[v]
+
+        return path,mid_dist
+
+
+
+
+
+
+
+
+    
 
 if __name__ == '__main__':
     # Now, we use the implementation to represent this graph:
@@ -140,7 +224,7 @@ if __name__ == '__main__':
     g.add_edge('C', 'B')  # C->(20)B
     g.add_edge('C', 'D')  # C->(32)D
     g.add_edge('E', 'A')  # E->(7)A
-
+    '''
     print(g)
 
     # g.dijkstra('A')
@@ -148,6 +232,8 @@ if __name__ == '__main__':
     print('minimum path from {} to {}: {}'.format('A', 'E', g.minimum_path('A', 'E')))
     print('minimum path from {} to {}: {}'.format('J', 'E', g.minimum_path('J', 'E')))
 
+
+    '''
     labels = ['A', 'B', 'C', 'D', 'E']
     g = Graph3(labels)
 
@@ -159,12 +245,19 @@ if __name__ == '__main__':
     g.add_edge('E', 'A', 7)  # E->(7)A
     # Now, we add the edges
 
+
+    
     print(g)
     print('minimum path from {} to {}: {}'.format('A', 'B', g.minimum_path('A', 'B')))
+    '''
     print('minimum path from {} to {}: {}'.format('A', 'E', g.minimum_path('A', 'E')))
     print('minimum path from {} to {}: {}'.format('J', 'E', g.minimum_path('J', 'E')))
+    '''
 
+    print()
+    print("My mind:", g.my_md('A', 'B'))
 
+    '''
     g.bellmanford('A')
     #
     labels = ['A', 'B', 'C']
@@ -202,7 +295,7 @@ if __name__ == '__main__':
         g.bellmanford(c)
         print()
 
-
+    '''
     # # # Exercise: Use the previous implementation to obtain the minimum path from X to Y in this graph:
     # # #  <img src='http://benalexkeen.com/wp-content/uploads/2017/01/Dijkstra.png'>
 
