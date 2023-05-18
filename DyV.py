@@ -1,4 +1,4 @@
-
+from random import randint
 #si visitas todos los nodos -> O(n)
 #si buscas -> O(logn)
 
@@ -225,15 +225,145 @@ def my_merge(L:list)->list:
 
 
 
+def quicksort_f(L:list)->list:
+    if len(L)<2:
+        return L
+    
+    lower, p, upper = partition_first(L)
+
+    return quicksort_f(lower) + [p] + quicksort_f(upper)
+
+def partition_first(L:list):
+    left=[]
+    right=[]
+
+    p=L[0]
+
+    for i in range(1,len(L)):
+        if L[i]<p:
+            left.append(L[i])
+
+        else:
+            right.append(L[i])
+
+    return left, p, right
+
+
+
+def quicksort_l(L:list)->list:
+    if len(L)<2:
+        return L
+    
+    left,p,right = partition_last(L)
+
+    return quicksort_l(left) + [p] + quicksort_l(right)
+
+def partition_last(L:list):
+    left=[]
+    right=[]
+
+    p=L[len(L)-1]
+
+    for i in range(0,len(L)-1):
+        if L[i]<p:
+            left.append(L[i])
+        else:
+            right.append(L[i])
+
+    return left, p, right
+
+
+def mid_quick(L:list)->None:
+    if L and L[0]:
+        m_q(L, 0, len(L)-1)
+
+def m_q(L:list, left:int, right:int):
+
+    
+   
+
+    
+
+    i=left
+    j=right
+    m=(left+right)//2
+    p=L[m]
+
+    while i<=j:
+        while L[i]<p:
+            i+=1
+
+        while L[j]>p:
+            j-=1
+
+        if i<=j:
+            L[i],L[j]=L[j],L[i]
+            i+=1
+            j-=1
+
+    if j>left:
+        m_q(L,left,j)
+
+    if i<right:
+        m_q(L,i,right)
+
+
+def quicksort_r(L:list)->None:
+    if L and len(L)>1:
+        q_r(L, 0, len(L)-1)
+
+def q_r(L:list, left:int, right:int)-> None:
+    i,j=left,right
+
+    m=randint(i,j)
+    p=L[m]
+
+    while i<=j:
+        while L[i]<p:
+            i+=1
+
+        while L[j]>p:
+            j-=1
+
+        if i<=j:
+            L[i],L[j]=L[j],L[i]
+            i+=1
+            j-=1
+
+    if j>left:
+        q_r(L,left,j)
+
+    if i<right:
+        q_r(L,i,right)
+
+
+def nm5(L:list)->int:
+    if L and len(L)==1:
+        if L[0]%5==0:
+            return L[0]
+        else:
+            return 0
+    
+    if L and len(L)>1:
+        m=len(L)//2
+        left=L[m:]
+        right=L[:m]
+        return nm5(left) + nm5(right)
 
 
 
 
 
 
-L=[1,3,2,4,7,9,23,5]
+
+
+
+L=[1,3,10,2,4,7,9,23,5]
 
 print(L)
-print(my_merge(L))
+quicksort_r(L)
+print(L)
+
+print(nm5(L))
 
 
