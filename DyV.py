@@ -351,6 +351,38 @@ def nm5(L:list)->int:
         return nm5(left) + nm5(right)
 
 
+def my_ffl(L:list, x:int)->tuple:
+    if L and len(L)>0:
+        return _my_ffl(L,x,0, len(L)-1)
+    
+    else:
+        return -1, -1
+
+
+
+def _my_ffl(L:list, x:int, start:int, end:int):
+    
+    if start==end:
+        if L[start]==x:
+            return start, start
+        return -1,-1
+    
+    m=(start+end)//2
+    first1,last1=_my_ffl(L,x,0,m)
+    first2, last2 = _my_ffl(L,x,m+1,end)
+
+    if first1==-1:
+        first=first2
+    else:
+        first=first1
+
+    if last1==-1:
+        last=last2
+
+    else:
+        last=last1
+
+    return first, last
 
 
 
@@ -366,4 +398,4 @@ print(L)
 
 print(nm5(L))
 
-
+print(my_ffl(L,23))

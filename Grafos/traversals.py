@@ -2,6 +2,7 @@
 
 from graph2 import Graph
 import sys
+import math
 
 class Graph2(Graph):
     """ Graph2 is a Graph's subclass. In this class,
@@ -291,7 +292,67 @@ class Graph2(Graph):
 
             visited[vertex]=True
 
+
+    def _md_p21(self, visited, distances):
+
+        min_dist=math.inf
+        min_vertex=None
+
+        for v in self._vertices.keys():
+            if not visited[v] and distances[v]<min_dist:
+                min_dist=distances[v]
+                min_vertex=v
+
+        return min_vertex
+
+
+
+    def _dij_p21(self, origin):
+
+        visited={}
+        distances={}
+        previous={}    
+
+        for v in self._vertices.keys():
+            visited[v]=False
+            distances[v]=math.inf
+            previous[v]=None
+
+        distances[origin]=0
+
+        for i in range (len(self._vertices.keys())):
+
+            u=self._md_p21(visited,distances)
+            visited[u]=True
+            
+            for v in self._vertices[u]:
+                if distances[u]+1<distances[v.vertex]:
+                    distances[v.vertex]=distances[u]+1
+                    previous[v.vertex]=u
+                
         
+        return previous, distances
+
+        
+    def min_p21(self, start, end):
+        if start not in self._vertices.keys():
+            return []
+        if end not in self._vertices.keys():
+            return []
+        
+
+        previous, distances=self._dij_p21(start)
+
+        outcome=[]
+        v=end
+        while v:
+            outcome.insert(0,v)
+            v=previous[v]
+        
+        print(distances[end])
+        return outcome
+
+            
 
 
 
@@ -407,22 +468,23 @@ if __name__ == '__main__':
     vlabels=['A', 'B', 'C', 'D', 'E']
     z=Graph2(vlabels)
 
-    z.add_edge('A','B',1)
+    z.add_edge('A','B',4)
     #z.add_edge('B','A')
 
-    z.add_edge('B','C',1)
-    z.add_edge('C','B',1)
+    z.add_edge('B','C',2)
+    z.add_edge('C','B',5)
 
-    z.add_edge('E','C',1)
+    z.add_edge('E','C',20)
 
    
-    z.add_edge('B','D',1)
+    z.add_edge('B','D',5)
 
     print(z)
 
     
     print(z.get_reach_bfs('B'))
     print(z.non_acc('B'))
+    
 
 
     '''
@@ -473,12 +535,18 @@ if __name__ == '__main__':
     # 'a' to the rest of the vertices in this graph:
     # <img src='https://www.bogotobogo.com/python/images/Dijkstra/graph_diagram.png' src='25%'/>
     #
+    '''
     labels = ['a', 'b', 'c', 'd', 'e', 'f']
     g = Graph2(labels, False)
     #
     # # Now, we add the edges
     g.add_edge('a', 'b', 7)
+    g.add_edge('b', 'a', 7)
+    
     g.add_edge('a', 'c', 9)
+    g.add_edge('c', 'a', 9)
+    
+
     g.add_edge('a', 'f', 14)
     g.add_edge('b', 'c', 10)
     g.add_edge('b', 'd', 15)
@@ -486,5 +554,16 @@ if __name__ == '__main__':
     g.add_edge('c', 'f', 2)
     g.add_edge('d', 'e', 6)
     g.add_edge('e', 'f', 9)
+    g.add_edge('f', 'a', 14)
+    g.add_edge('c', 'b', 10)
+    g.add_edge('d', 'b', 15)
+    g.add_edge('d', 'c', 11)
+    g.add_edge('f', 'c', 2)
+    g.add_edge('e', 'd', 6)
+    g.add_edge('f', 'e', 9)
+    
     print(g)
-    '''
+
+
+    print(g.min_p21('b','f'))
+    
